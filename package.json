@@ -1,15 +1,11 @@
 {
-  "name": "vue-admin",
-  "version": "0.1.11",
+  "name": "HeronUI",
+  "version": "0.0.1",
   "description": "Vue Admin Panel Framework",
-  "repository": "fundon/vue-admin",
+  "repository": "MeiQuant/Heron-UI",
   "homepage": "https://vue-admin.fundon.me",
   "license": "MIT",
-  "author": {
-    "name": "Fangdun Cai",
-    "email": "cfddream@gmail.com",
-    "url": "fundon.me"
-  },
+  "author": "MeiQuant",
   "keywords": [
     "admin",
     "bulma",

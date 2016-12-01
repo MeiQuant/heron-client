@@ -3,3 +3,8 @@
 node_modules
 npm-debug.log
 build/
+dist/
+yarn-error.log
+selenium-debug.log
+test/unit/coverage
+test/e2e/reports
