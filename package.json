@@ -1,9 +1,9 @@
 {
-  "name": "HeronUI",
+  "name": "Heron",
   "version": "0.0.1",
-  "description": "Vue Admin Panel Framework",
-  "repository": "MeiQuant/Heron-UI",
-  "homepage": "https://vue-admin.fundon.me",
+  "description": "一款基于CTP的交易终端",
+  "repository": "MeiQuant/Heron-client",
+  "homepage": "https://github.com/MeiQuant/Heron-client",
   "license": "MIT",
   "author": "MeiQuant",
   "keywords": [
