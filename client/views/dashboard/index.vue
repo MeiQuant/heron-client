@@ -29,7 +29,7 @@
         <article class="box">
           <p class="title">日志</p>
           <p class="subtitle">系统日志</p>
-          <div class="notification is-info">2016-12-05 17:35:01 系统启动成功</div>
+          <div class="notification is-info">{{log.time}} {{log.content}}</div>
           <div class="notification">2016-12-05 17:35:01 链接行情服务器成功</div>
           <div class="notification">2016-12-05 17:35:01 开启自动查询成功</div>
           <div class="notification is-danger">2016-12-05 17:35:01 关闭系统失败</div>
@@ -40,8 +40,18 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue'
+import {VueSocketio as Socket} from 'vue-socket.io'
 
+import store from '../../store'
+
+export default {
+  computed: {
+    log() {
+      //返回日志数据, 根据类别，处理样式
+      return store.state.logs[0]
+    }
+  }
 }
 </script>
 

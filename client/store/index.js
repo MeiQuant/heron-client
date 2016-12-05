@@ -18,7 +18,13 @@ const store = new Vuex.Store({
     menu
   },
   state: {
-    pkg
+    pkg,
+    logs: [
+      {
+        time: '2016-12-05 19:17:01:55',
+        content: '服务启动成功， 这条消息来自store'
+      }
+    ]
   },
   mutations: {
   }
