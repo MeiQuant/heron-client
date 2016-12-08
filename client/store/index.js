@@ -6,6 +6,7 @@ import * as getters from './getters'
 
 import app from './modules/app'
 import menu from './modules/menu'
+import log from './modules/log'
 
 Vue.use(Vuex)
 
@@ -15,16 +16,11 @@ const store = new Vuex.Store({
   getters,
   modules: {
     app,
-    menu
+    menu,
+    log
   },
   state: {
-    pkg,
-    logs: [
-      {
-        time: '2016-12-05 19:17:01:55',
-        content: '服务启动成功， 这条消息来自store'
-      }
-    ]
+    pkg
   },
   mutations: {
   }
