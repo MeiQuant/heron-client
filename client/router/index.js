@@ -28,7 +28,7 @@ function generateRoutesFromMenu (menu = [], routes = []) {
     if (item.path) {
       routes.push(item)
     }
-    if (!item.component) {
+    if (item.children && item.children.length > 0) {
       generateRoutesFromMenu(item.children, routes)
     }
   }

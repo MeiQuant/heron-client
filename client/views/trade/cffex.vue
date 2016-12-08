@@ -7,9 +7,9 @@
             <p class="level-left title is-4 is-marginless">合约列表</p>
             <div class="level-right tabs is-right is-toggle">
               <ul>
-                <li class="is-active"><a>上交所</a></li>
+                <li><a>上交所</a></li>
                 <li><a>上期所</a></li>
-                <li><a>中金所</a></li>
+                <li class="is-active"><a>中金所</a></li>
                 <li><a>大商所</a></li>
                 <li><a>郑商所</a></li>
               </ul>
@@ -18,20 +18,20 @@
 
           <table class="table is-narrow">
             <thead>
-              <tr>
-                <th>合约名称</th>
-                <th>最新价</th>
-                <th>买价</th>
-                <th>买量</th>
-                <th>卖价</th>
-                <th>卖量</th>
-                <th>涨跌</th>
-                <th>涨跌幅</th>
-                <th>成交量</th>
-                <th>现手</th>
-                <th>持仓量</th>
-                <th>昨结算</th>
-              </tr>
+            <tr>
+              <th>合约名称</th>
+              <th>最新价</th>
+              <th>买价</th>
+              <th>买量</th>
+              <th>卖价</th>
+              <th>卖量</th>
+              <th>涨跌</th>
+              <th>涨跌幅</th>
+              <th>成交量</th>
+              <th>现手</th>
+              <th>持仓量</th>
+              <th>昨结算</th>
+            </tr>
             </thead>
           </table>
         </div>
