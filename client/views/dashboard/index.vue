@@ -37,15 +37,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Socket from 'vue-socket.io'
-
 export default {
-  created: () => {
-    // 实例创建之后， 建立与服务端的链接
-    Vue.use(Socket, 'http://192.168.33.10:5000')
-  },
-
   sockets: {
     log (msg) {
       this.$store.commit('APPEND_LOG', {

@@ -5,35 +5,10 @@
         <div class="box">
           <div class="level">
             <p class="level-left title is-4 is-marginless">合约列表</p>
-            <div class="level-right tabs is-right is-toggle">
-              <ul @click="exchangeSelect">
-                <li><a>上交所</a></li>
-                <li class="is-active"><a>上期所</a></li>
-                <li><a>中金所</a></li>
-                <li><a>大商所</a></li>
-                <li><a>郑商所</a></li>
-              </ul>
-            </div>
+            <exchangeTabs></exchangeTabs>
           </div>
 
-          <table class="table is-narrow">
-            <thead>
-            <tr>
-              <th>合约名称</th>
-              <th>最新价</th>
-              <th>买价</th>
-              <th>买量</th>
-              <th>卖价</th>
-              <th>卖量</th>
-              <th>涨跌</th>
-              <th>涨跌幅</th>
-              <th>成交量</th>
-              <th>现手</th>
-              <th>持仓量</th>
-              <th>昨结算</th>
-            </tr>
-            </thead>
-          </table>
+          <futures></futures>
         </div>
       </div>
     </div>
@@ -44,13 +19,14 @@
 </template>
 
 <script>
-// import Vue from 'vue'
-import { Trade } from 'components/trade'
+import { Trade, ExchangeTabs, Futures } from 'components/trade'
 
 export default {
 
   components: {
-    Trade
+    Trade,
+    ExchangeTabs,
+    Futures
   },
 
   methods: {

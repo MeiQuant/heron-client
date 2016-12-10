@@ -13,6 +13,26 @@ export default new Router({
       path: '/',
       component: require('../views/Home')
     },
+    {
+      name: '交易/上期所',
+      path: '/trade/shfe',
+      component: require('../views/trade/shfe')
+    },
+    {
+      name: '交易/中金所',
+      path: '/trade/cffex',
+      component: require('../views/trade/cffex')
+    },
+    {
+      name: '交易/大商所',
+      path: '/trade/dce',
+      component: require('../views/trade/dce')
+    },
+    {
+      name: '交易/郑商所',
+      path: '/trade/czce',
+      component: require('../views/trade/czce')
+    },
     ...generateRoutesFromMenu(menuModule.state.items),
     {
       path: '*',

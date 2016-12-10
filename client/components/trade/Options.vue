@@ -17,13 +17,6 @@
         <th>昨结算</th>
       </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>{{contract.name}}</td>
-          <td>{{contract.symbol}}</td>
-          <td>{{contract.size}}</td>
-        </tr>
-      </tbody>
     </table>
   </div>
 </template>
@@ -32,16 +25,5 @@
 </style>
 <script>
   export default {
-
-    computed: {
-      contract () {
-        return {
-          name: '合约中文名',
-          symbol: '合约代码',
-          size: '合约大小'
-        }
-      }
-    }
-
   }
 </script>
