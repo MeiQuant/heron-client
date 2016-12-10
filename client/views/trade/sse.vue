@@ -4,7 +4,7 @@
       <div class="column">
         <div class="box">
           <div class="level">
-            <p class="level-left title is-4 is-marginless">合约列表</p>
+            <p class="level-left title is-4 is-marginless">行情</p>
             <exchangeTabs></exchangeTabs>
           </div>
 

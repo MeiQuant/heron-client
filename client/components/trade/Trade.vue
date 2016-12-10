@@ -54,6 +54,11 @@
     <div class="columns">
       <div class="column">
         <div class="box">
+          <p class="title is-4">成交</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
           <p class="title is-4">持仓合约</p>
         </div>
       </div>
