@@ -8,7 +8,7 @@
             <exchangeTabs></exchangeTabs>
           </div>
 
-          <futures></futures>
+          <futures exchange="SHFE"></futures>
         </div>
       </div>
     </div>

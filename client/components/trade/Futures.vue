@@ -3,18 +3,23 @@
     <table class="table is-narrow">
       <thead>
       <tr>
-        <th>合约名称</th>
+        <th>代码</th>
+        <th>名称</th>
         <th>最新价</th>
+        <th>涨跌</th>
+        <th>幅度</th>
         <th>买价</th>
         <th>买量</th>
         <th>卖价</th>
         <th>卖量</th>
-        <th>涨跌</th>
-        <th>涨跌幅</th>
         <th>成交量</th>
         <th>现手</th>
         <th>持仓量</th>
         <th>昨结算</th>
+        <th>买一价</th>
+        <th>买一量</th>
+        <th>卖一价</th>
+        <th>卖一量</th>
       </tr>
       </thead>
       <tbody>
@@ -22,6 +27,7 @@
           <td>{{contract.name}}</td>
           <td>{{contract.symbol}}</td>
           <td>{{contract.size}}</td>
+          <td @click="testProps">{{exchange}}</td>
         </tr>
       </tbody>
     </table>
@@ -32,6 +38,7 @@
 </style>
 <script>
   export default {
+    props: ['exchange'],
 
     computed: {
       contract () {
@@ -41,6 +48,14 @@
           size: '合约大小'
         }
       }
+    },
+
+    methods: {
+
+      testProps () {
+        console.log(this.$options.propsData['exchange'])
+      }
+
     }
 
   }
