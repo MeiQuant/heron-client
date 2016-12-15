@@ -29,7 +29,7 @@ const mutations = {
   },
 
   [types.SWITCH_EFFECT] (state, effectItem) {
-    for (let name in effectItem) {
+    for (const name in effectItem) {
       state.effect[name] = effectItem[name]
     }
   }

@@ -2,6 +2,7 @@
   <div>
     <div class="level-right tabs is-right is-toggle">
       <ul>
+        <router-link to="/trade/index" tag="li"><a>全部</a></router-link>
         <router-link to="/trade/sse" tag="li"><a>上交所</a></router-link>
         <router-link to="/trade/shfe" tag="li"><a>上期所</a></router-link>
         <router-link to="/trade/cffex" tag="li"><a>中金所</a></router-link>

@@ -5,6 +5,9 @@
         <div class="box">
           <p class="title is-4">下单</p>
 
+          <p class="control">
+            <input class="input is-8" type="text" placeholder="合约代码">
+          </p>
 
           <p class="is-6">价格</p>
           <div class="control is-grouped">

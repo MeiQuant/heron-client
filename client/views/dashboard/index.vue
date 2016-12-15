@@ -27,9 +27,22 @@
       </div>
       <div class="column">
         <article class="box">
-          <p class="title is-4">日志</p>
+          <p class="title is-4" @click="testSockets">日志</p>
           <p class="subtitle is-6">系统日志</p>
-          <div class="notification" v-for="log of logs">{{log.time}} {{log.content}}</div>
+          <template v-for="log of logs">
+
+            <template v-if="log.isError">
+              <div class="notification is-danger">
+                {{log.time}} {{log.content}}
+              </div>
+            </template>
+            <template v-else>
+              <div class="notification">
+                {{log.time}} {{log.content}}
+              </div>
+            </template>
+          </template>
+
         </article>
       </div>
     </div>
@@ -37,13 +50,32 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import Socket from 'vue-socket.io-meiquant'
+
+Vue.use(Socket)
+
 export default {
+
+  created () {
+    // 建立与服务端的链接
+    this.socket = this.$socket('http://192.168.33.10:5000/system')
+  },
+
   sockets: {
     log (msg) {
-      this.$store.commit('APPEND_LOG', {
+      msg.time && this.$store.commit('APPEND_LOG', {
         time: msg.time,
         content: msg.content
       })
+
+      msg.errorTime && this.$store.commit('APPEND_LOG', {
+        time: msg.errorTime,
+        content: msg.errorMsg,
+        isError: true
+      })
+
+      this.$forceUpdate()
     }
   },
 
@@ -58,18 +90,21 @@ export default {
 
     startService (e) {
       // alert('我要启动服务')
-      this.$socket.emit('system_start', {
+      this.socket.emit('system_start', {
         // params to server
 
       })
     },
 
     stopService (e) {
-      this.$socket.emit('system_exit', {
+      this.socket.emit('system_exit', {
         data: 'exit'
       })
-    }
+    },
 
+    testSockets (e) {
+      console.log(this.$socket('http://192.168.33.10:5000'))
+    }
   }
 }
 </script>

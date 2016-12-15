@@ -54,7 +54,7 @@ export default {
   },
 
   mounted () {
-    let route = this.$route
+    const route = this.$route
     if (route.name) {
       this.isReady = true
       this.shouldExpandMatchItem(route)
@@ -82,8 +82,8 @@ export default {
     },
 
     shouldExpandMatchItem (route) {
-      let matched = route.matched
-      let lastMatched = matched[matched.length - 1]
+      const matched = route.matched
+      const lastMatched = matched[matched.length - 1]
       let parent = lastMatched.parent || lastMatched
       const isParent = parent === lastMatched
 

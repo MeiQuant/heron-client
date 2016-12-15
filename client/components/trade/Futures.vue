@@ -2,7 +2,7 @@
   <div>
     <table class="table is-narrow">
       <thead>
-      <tr>
+      <tr @click="testEvent">
         <th>代码</th>
         <th>名称</th>
         <th>最新价</th>
@@ -23,11 +23,29 @@
       </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{{contract.name}}</td>
-          <td>{{contract.symbol}}</td>
-          <td>{{contract.size}}</td>
-          <td @click="testProps">{{exchange}}</td>
+        <tr v-for="tick of ticks">
+          <td>{{ tick.symbol}}</td>
+          <td>合约名称</td>
+          <td>{{ tick.lastPrice}}</td>
+          <td>涨跌</td>
+          <td>幅度</td>
+          <td>{{ tick.askPrice1 }}</td>
+          <td>{{ tick.askVolume1 }}</td>
+          <td>{{ tick.bidPrice1 }}</td>
+          <td>{{ tick.bidVolume1 }}</td>
+
+          <td>{{ tick.volume }}</td>
+
+          <td>{{ tick.volume }}</td>
+
+          <td>{{ tick.openInterest }}</td>
+
+          <td>{{ tick.preClosePrice }}</td>
+          <td>{{ tick.askPrice1 }}</td>
+          <td>{{ tick.askVolume1 }}</td>
+          <td>{{ tick.bidPrice1 }}</td>
+          <td>{{ tick.bidVolume1 }}</td>
+
         </tr>
       </tbody>
     </table>
@@ -37,26 +55,84 @@
 
 </style>
 <script>
-  export default {
-    props: ['exchange'],
+export default {
 
-    computed: {
-      contract () {
-        return {
-          name: '合约中文名',
-          symbol: '合约代码',
-          size: '合约大小'
-        }
-      }
+  props: ['exchange'],
+
+  // 注册对应交易所的tick监听，获取所有的tick数据？
+  // let exchange = this.$options.propsData['exchange']
+  // yse
+
+  created () {
+    this.socket = this.$socket('http://192.168.33.10:5000/market')
+  },
+
+  sockets: {
+    update_tick (data) {
+      // this.$store.commit('UPDATE_TICK', data)
+      this.$store.dispatch('update_tick', data)
     },
 
-    methods: {
-
-      testProps () {
-        console.log(this.$options.propsData['exchange'])
-      }
-
+    init_ticks (data) {
+      this.$store.commit('INIT_TICKS', data)
     }
+  },
 
+  computed: {
+    ticks () {
+      const exchange = this.$options.propsData['exchange']
+      if (exchange === 'All') {
+        return this.$store.state.ticks.ticks
+      } else {
+        return this.$store.state.ticks[exchange]
+      }
+    }
+  },
+
+  methods: {
+    testEvent () {
+      this.$store.dispatch('update_tick', {
+        'bidVolume5': 0,
+        'bidVolume4': 0,
+        'bidVolume3': 0,
+        'bidVolume2': 0,
+        'openPrice': 1.7976931348623157e+308,
+        'datetime': null,
+        'askVolume1': 0,
+        'askVolume3': 0,
+        'askVolume2': 0,
+        'askVolume5': 0,
+        'lastPrice': 3216.0,
+        'highPrice': 1.7976931348623157e+308,
+        'openInterest': 756.0,
+        'preClosePrice': 3216.0,
+        'gatewayName': 'CTP',
+        'lowerLimit': 3061.0,
+        'exchange': '',
+        'symbol': 'jd1702',
+        'time': '18:11:06.3',
+        'volume': 0,
+        'bidVolume1': 0,
+        'date': '201612-12',
+        'lastVolume': 0,
+        'askVolume4': 0,
+        'bidPrice5': 0.0,
+        'bidPrice4': 0.0,
+        'bidPrice1': 0.0,
+        'bidPrice3': 0.0,
+        'bidPrice2': 0.0,
+        'askPrice1': 0.0,
+        'lowPrice': 1.7976931348623157e+308,
+        'askPrice5': 0.0,
+        'askPrice4': 0.0,
+        'askPrice3': 0.0,
+        'askPrice2': 0.0,
+        'vtSymbol': 'jd1702',
+        'upperLimit': 3383.0
+      })
+      this.$forceUpdate()
+    }
   }
+
+}
 </script>

@@ -8,7 +8,7 @@
             <exchangeTabs></exchangeTabs>
           </div>
 
-          <options></options>
+          <options exchange="SSE"></options>
         </div>
       </div>
     </div>

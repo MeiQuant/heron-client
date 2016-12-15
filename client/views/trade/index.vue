@@ -8,7 +8,7 @@
             <exchangeTabs></exchangeTabs>
           </div>
 
-          <futures exchange="DCE"></futures>
+          <futures exchange="All"></futures>
         </div>
       </div>
     </div>

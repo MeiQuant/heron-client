@@ -13,15 +13,7 @@ import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout/'
 import { mapGetters, mapActions } from 'vuex'
 
-import Vue from 'vue'
-import Socket from 'vue-socket.io'
-
 export default {
-  created: () => {
-    // 实例创建之后， 建立与服务端的链接
-    Vue.use(Socket, 'http://192.168.33.10:5000')
-  },
-
   components: {
     Navbar,
     Sidebar,
@@ -37,8 +29,8 @@ export default {
 
     const handler = () => {
       if (!document.hidden) {
-        let rect = body.getBoundingClientRect()
-        let isMobile = rect.width - RATIO < WIDTH
+        const rect = body.getBoundingClientRect()
+        const isMobile = rect.width - RATIO < WIDTH
         this.toggleDevice(isMobile ? 'mobile' : 'other')
         this.toggleSidebar(!isMobile)
       }

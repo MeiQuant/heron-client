@@ -44,7 +44,7 @@ export default new Router({
 // Menu should have 2 levels.
 function generateRoutesFromMenu (menu = [], routes = []) {
   for (let i = 0, l = menu.length; i < l; i++) {
-    let item = menu[i]
+    const item = menu[i]
     if (item.path) {
       routes.push(item)
     }
