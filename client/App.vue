@@ -13,6 +13,11 @@ import NprogressContainer from 'vue-nprogress/src/NprogressContainer'
 import { Navbar, Sidebar, AppMain, FooterBar } from 'components/layout/'
 import { mapGetters, mapActions } from 'vuex'
 
+import Vue from 'vue'
+import Socket from 'vue-socket.io-meiquant'
+
+Vue.use(Socket)
+
 export default {
   components: {
     Navbar,
@@ -20,6 +25,26 @@ export default {
     AppMain,
     FooterBar,
     NprogressContainer
+  },
+
+  created () {
+    // 建立与服务端的链接
+    this.$socket('http://192.168.33.10:5000/system')
+  },
+
+  sockets: {
+    log (msg) {
+      msg.time && this.$store.commit('APPEND_LOG', {
+        time: msg.time,
+        content: msg.content
+      })
+
+      msg.errorTime && this.$store.commit('APPEND_LOG', {
+        time: msg.errorTime,
+        content: msg.errorMsg,
+        isError: true
+      })
+    }
   },
 
   beforeMount () {

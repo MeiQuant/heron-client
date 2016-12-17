@@ -27,7 +27,7 @@
       </div>
       <div class="column">
         <article class="box">
-          <p class="title is-4" @click="testSockets">日志</p>
+          <p class="title is-4">日志</p>
           <p class="subtitle is-6">系统日志</p>
           <template v-for="log of logs">
 
@@ -62,23 +62,6 @@ export default {
     this.socket = this.$socket('http://192.168.33.10:5000/system')
   },
 
-  sockets: {
-    log (msg) {
-      msg.time && this.$store.commit('APPEND_LOG', {
-        time: msg.time,
-        content: msg.content
-      })
-
-      msg.errorTime && this.$store.commit('APPEND_LOG', {
-        time: msg.errorTime,
-        content: msg.errorMsg,
-        isError: true
-      })
-
-      this.$forceUpdate()
-    }
-  },
-
   computed: {
     logs () {
       // 返回日志数据, 根据类别，处理样式
@@ -90,20 +73,11 @@ export default {
 
     startService (e) {
       // alert('我要启动服务')
-      this.socket.emit('system_start', {
-        // params to server
-
-      })
+      this.socket.emit('system_start')
     },
 
     stopService (e) {
-      this.socket.emit('system_exit', {
-        data: 'exit'
-      })
-    },
-
-    testSockets (e) {
-      console.log(this.$socket('http://192.168.33.10:5000'))
+      this.socket.emit('system_exit')
     }
   }
 }

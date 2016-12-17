@@ -14,6 +14,11 @@ export default new Router({
       component: require('../views/Home')
     },
     {
+      name: '交易/上交所',
+      path: '/trade/sse',
+      component: require('../views/trade/sse')
+    },
+    {
       name: '交易/上期所',
       path: '/trade/shfe',
       component: require('../views/trade/shfe')

@@ -25,5 +25,7 @@
 </style>
 <script>
   export default {
+    props: ['exchange']
+
   }
 </script>

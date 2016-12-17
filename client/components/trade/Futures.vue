@@ -23,7 +23,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr v-for="tick of ticks">
+        <tr v-for="tick of ticks" :key="tick.symbol">
           <td>{{ tick.symbol}}</td>
           <td>合约名称</td>
           <td>{{ tick.lastPrice}}</td>
@@ -71,11 +71,20 @@ export default {
     update_tick (data) {
       // this.$store.commit('UPDATE_TICK', data)
       this.$store.dispatch('update_tick', data)
+      // this.$forceUpdate()
     },
 
     init_ticks (data) {
       this.$store.commit('INIT_TICKS', data)
     }
+  },
+
+  updated () {
+    // console.log((new Date()).getTime() + '我更新了')
+    var _this = this
+    window.setTimeout(function () {
+      _this.$forceUpdate()
+    }, 300)
   },
 
   computed: {
@@ -91,45 +100,8 @@ export default {
 
   methods: {
     testEvent () {
-      this.$store.dispatch('update_tick', {
-        'bidVolume5': 0,
-        'bidVolume4': 0,
-        'bidVolume3': 0,
-        'bidVolume2': 0,
-        'openPrice': 1.7976931348623157e+308,
-        'datetime': null,
-        'askVolume1': 0,
-        'askVolume3': 0,
-        'askVolume2': 0,
-        'askVolume5': 0,
-        'lastPrice': 3216.0,
-        'highPrice': 1.7976931348623157e+308,
-        'openInterest': 756.0,
-        'preClosePrice': 3216.0,
-        'gatewayName': 'CTP',
-        'lowerLimit': 3061.0,
-        'exchange': '',
-        'symbol': 'jd1702',
-        'time': '18:11:06.3',
-        'volume': 0,
-        'bidVolume1': 0,
-        'date': '201612-12',
-        'lastVolume': 0,
-        'askVolume4': 0,
-        'bidPrice5': 0.0,
-        'bidPrice4': 0.0,
-        'bidPrice1': 0.0,
-        'bidPrice3': 0.0,
-        'bidPrice2': 0.0,
-        'askPrice1': 0.0,
-        'lowPrice': 1.7976931348623157e+308,
-        'askPrice5': 0.0,
-        'askPrice4': 0.0,
-        'askPrice3': 0.0,
-        'askPrice2': 0.0,
-        'vtSymbol': 'jd1702',
-        'upperLimit': 3383.0
-      })
+      // this.socket.emit('subscribe_all')
+      console.log(this.socket)
       this.$forceUpdate()
     }
   }
