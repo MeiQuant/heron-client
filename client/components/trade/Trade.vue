@@ -71,7 +71,13 @@
 <style>
 
 </style>
+
 <script>
   export default {
+
+    created () {
+      this.socket = this.$socket('http://192.168.33.10:5000/trade')
+    }
+
   }
 </script>
