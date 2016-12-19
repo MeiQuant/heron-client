@@ -84,7 +84,7 @@ export default {
     var _this = this
     window.setTimeout(function () {
       _this.$forceUpdate()
-    }, 300)
+    }, 500)
   },
 
   computed: {
@@ -100,7 +100,7 @@ export default {
 
   methods: {
     testEvent () {
-      // this.socket.emit('subscribe_all')
+      this.socket.emit('subscribe_all')
       console.log(this.socket)
       this.$forceUpdate()
     }

@@ -11,3 +11,9 @@ export const APPEND_LOG = 'APPEND_LOG'
 export const UPDATE_TICK = 'UPDATE_TICK'
 
 export const INIT_TICKS = 'INIT_TICKS'
+
+export const UPDATE_POSITION = 'UPDATE_POSITION'
+
+export const UPDATE_ORDER = 'UPDATE_ORDER'
+
+export const UPDATE_TRADE = 'UPDATE_TRADE'

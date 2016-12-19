@@ -8,6 +8,9 @@ import app from './modules/app'
 import menu from './modules/menu'
 import log from './modules/log'
 import ticks from './modules/trade/ticks'
+import positions from './modules/trade/positions'
+import orders from './modules/trade/orders'
+import trades from './modules/trade/trades'
 
 Vue.use(Vuex)
 
@@ -19,7 +22,10 @@ const store = new Vuex.Store({
     app,
     menu,
     log,
-    ticks
+    ticks,
+    positions,
+    orders,
+    trades
   },
   state: {
     pkg

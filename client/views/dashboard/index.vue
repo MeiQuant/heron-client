@@ -69,6 +69,14 @@ export default {
     }
   },
 
+  updated () {
+    // console.log((new Date()).getTime() + '我更新了')
+    var _this = this
+    window.setTimeout(function () {
+      _this.$forceUpdate()
+    }, 500)
+  },
+
   methods: {
 
     startService (e) {
