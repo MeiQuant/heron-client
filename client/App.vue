@@ -27,26 +27,6 @@ export default {
     NprogressContainer
   },
 
-  created () {
-    // 建立与服务端的链接
-    this.$socket('http://192.168.33.10:5000/system')
-  },
-
-  sockets: {
-    log (msg) {
-      msg.time && this.$store.commit('APPEND_LOG', {
-        time: msg.time,
-        content: msg.content
-      })
-
-      msg.errorTime && this.$store.commit('APPEND_LOG', {
-        time: msg.errorTime,
-        content: msg.errorMsg,
-        isError: true
-      })
-    }
-  },
-
   beforeMount () {
     const { body } = document
     const WIDTH = 768

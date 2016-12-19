@@ -8,8 +8,8 @@ const state = {}
 const mutations = {
 
   [UPDATE_ORDER] (state, data) {
-    const symbol = data.symbol
-    state[symbol] = data
+    const orderID = '_' + data.orderID
+    state[orderID] = data
   }
 }
 

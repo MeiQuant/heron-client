@@ -91,7 +91,7 @@
                 <td> {{ order.frontID }} </td>
                 <td> {{ order.sessionID }} </td>
                 <td>
-                  <a class="button is-danger is-small is-outlined">
+                  <a class="button is-danger is-small is-outlined" @click="cancel_order(order)">
                     <span class="icon">
                       <i class="fa fa-reply"></i>
                     </span>
@@ -165,7 +165,7 @@
                 <td> {{ position.frozen }} </td>
                 <td> {{ position.price }} </td>
                 <td>
-                  <a class="button is-danger is-small is-outlined">
+                  <a class="button is-danger is-small is-outlined" @click="close_position(position)">
                     <span class="icon">
                       <i class="fa fa-remove is-danger"></i>
                     </span>
@@ -237,11 +237,22 @@
       send_order (direction, offset) {
         const order = Object.assign({
           direction: direction,
-          offset: offset
+          offset: offset,
+          exchange: 'SHFE'
         }, this.$data.order)
 
         // 弹屏确认
         this.socket.emit('send_order', order)
+      },
+
+      cancel_order (order) {
+        console.log(order)
+        this.socket.emit('cancel_order', order)
+      },
+
+      close_position (position) {
+        console.log(position)
+        // fill the form of trade
       }
     }
   }
