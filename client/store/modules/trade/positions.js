@@ -9,7 +9,7 @@ const state = {}
 const mutations = {
 
   [UPDATE_POSITION] (state, data) {
-    const symbol = data.symbol
+    const symbol = data.vtPositionName
     state[symbol] = data
   }
 }

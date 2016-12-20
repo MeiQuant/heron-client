@@ -142,6 +142,10 @@ export default {
   created () {
     // 建立与服务端的链接
     this.socket = this.$socket('http://192.168.33.10:5000/system')
+    var _this = this
+    window.setInterval(function () {
+      _this.$forceUpdate()
+    }, 2000)
   },
 
   sockets: {
@@ -202,14 +206,6 @@ export default {
       // 返回日志数据, 根据类别，处理样式
       return this.$store.state.log.logs
     }
-  },
-
-  updated () {
-    // console.log((new Date()).getTime() + '我更新了')
-    var _this = this
-    window.setTimeout(function () {
-      _this.$forceUpdate()
-    }, 1000)
   },
 
   methods: {

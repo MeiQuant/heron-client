@@ -52,6 +52,11 @@
             </p>
           </div>
         </div>
+
+        <div class="box">
+          <p class="title is-4">资金</p>
+        </div>
+
       </div>
       <div class="column">
         <div class="box">
@@ -191,6 +196,10 @@
 
     created () {
       this.socket = this.$socket('http://192.168.33.10:5000/trade')
+      var _this = this
+      window.setInterval(function () {
+        _this.$forceUpdate()
+      }, 2000)
     },
 
     sockets: {
@@ -222,15 +231,6 @@
 
         trades: this.$store.state.trades
       }
-    },
-
-    updated () {
-      // console.log(this.$data.order.price)
-      // console.log((new Date()).getTime() + '我更新了')
-      var _this = this
-      window.setTimeout(function () {
-        _this.$forceUpdate()
-      }, 1000)
     },
 
     methods: {
