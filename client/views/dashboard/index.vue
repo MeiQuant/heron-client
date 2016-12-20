@@ -31,20 +31,16 @@
           <div class="columns">
             <div class="column is-8">
               <p class="is-6">地址</p>
-              <input class="input" type="text" v-model="frontServer.address" disabled placeholder="前置服务器地址">
+              <input class="input" type="text" v-model="frontServer.address" :disabled="!frontServer.hideEnable" placeholder="前置服务器地址">
             </div>
             <div class="column">
               <p class="is-6">端口</p>
-              <input class="input" type="number" v-model="frontServer.port" disabled placeholder="端口">
+              <input class="input" type="number" v-model="frontServer.port" :disabled="!frontServer.hideEnable" placeholder="端口">
             </div>
           </div>
-          <div class="control is-grouped">
-            <div class="control">
-              <a class="button is-primary">修改</a>
-            </div>
-            <div class="control">
-              <a class="button is-info">确认</a>
-            </div>
+          <div class="control">
+            <a class="button is-primary" :class="[frontServer.hideEnable ? 'is-hidden' : '']" @click="modify_enable('frontServer')">修改</a>
+            <a class="button is-info" :class="[frontServer.hideEnable ? '' : 'is-hidden']" @click="modify_confirm('frontServer')">确认</a>
           </div>
         </div>
 
@@ -54,26 +50,22 @@
           <div class="columns">
             <div class="column is-8">
               <p class="is-6">行情服务器</p>
-              <input class="input is-8" type="text" v-model="ctp.mdAddress" disabled placeholder="行情服务器地址">
+              <input class="input is-8" type="text" v-model="ctp.mdAddress" :disabled="!ctp.hideEnable" placeholder="行情服务器地址">
               <p>&nbsp;</p>
               <p class="is-6">交易服务器</p>
-              <input class="input is-8" type="text" v-model="ctp.tdAddress" disabled placeholder="交易服务器地址">
+              <input class="input is-8" type="text" v-model="ctp.tdAddress" :disabled="!ctp.hideEnable" placeholder="交易服务器地址">
             </div>
             <div class="column">
               <p class="is-6">端口</p>
-              <input class="input is-4" type="number" v-model="ctp.mdPort" disabled placeholder="端口">
+              <input class="input is-4" type="number" v-model="ctp.mdPort" :disabled="!ctp.hideEnable" placeholder="端口">
               <p>&nbsp;</p>
               <p class="is-6">端口</p>
-              <input class="input is-4" type="number" v-model="ctp.tdPort" disabled placeholder="端口">
+              <input class="input is-4" type="number" v-model="ctp.tdPort" :disabled="!ctp.hideEnable" placeholder="端口">
             </div>
           </div>
-          <div class="control is-grouped">
-            <div class="control">
-              <a class="button is-primary">修改</a>
-            </div>
-            <div class="control">
-              <a class="button is-info">确认</a>
-            </div>
+          <div class="control">
+            <a class="button is-primary" :class="[ctp.hideEnable ? 'is-hidden' : '']" @click="modify_enable('ctp')">修改</a>
+            <a class="button is-info" :class="[ctp.hideEnable ? '' : 'is-hidden']" @click="modify_confirm('ctp')">确认</a>
           </div>
         </div>
 
@@ -83,24 +75,20 @@
           <div class="columns">
             <div class="column is-4">
               <p class="is-6">BrokerID</p>
-              <input class="input" type="number" v-model="broker.brokerID" disabled placeholder="经纪商ID">
+              <input class="input" type="number" v-model="broker.brokerID" :disabled="!broker.hideEnable" placeholder="经纪商ID">
             </div>
             <div class="column">
               <p class="is-6">用户名</p>
-              <input class="input" type="number" v-model="broker.userID" disabled placeholder="用户ID">
+              <input class="input" type="number" v-model="broker.userID" :disabled="!broker.hideEnable" placeholder="用户ID">
             </div>
             <div class="column">
               <p class="is-6">密码</p>
-              <input class="input" type="password" v-model="broker.password" disabled placeholder="密码">
+              <input class="input" type="password" v-model="broker.password" :disabled="!broker.hideEnable" placeholder="密码">
             </div>
           </div>
-          <div class="control is-grouped">
-            <div class="control">
-              <a class="button is-primary">修改</a>
-            </div>
-            <div class="control">
-              <a class="button is-info">确认</a>
-            </div>
+          <div class="control">
+            <a class="button is-primary" :class="[broker.hideEnable ? 'is-hidden' : '']"  @click="modify_enable('broker')">修改</a>
+            <a class="button is-info" :class="[broker.hideEnable ? '' : 'is-hidden']"  @click="modify_confirm('broker')">确认</a>
           </div>
         </div>
 
@@ -185,18 +173,21 @@ export default {
     return {
       frontServer: {
         address: 'http://192.168.33.10',
-        port: 5000
+        port: 5000,
+        hideEnable: false
       },
       ctp: {
-        tdAddress: 'tcp://180.168.146.187:10000',
+        tdAddress: 'tcp://180.168.146.187',
         tdPort: 10000,
-        mdAddress: 'tcp://180.168.146.187:10010',
-        mdPort: 10010
+        mdAddress: 'tcp://180.168.146.187',
+        mdPort: 10010,
+        hideEnable: false
       },
       broker: {
         brokerID: '9999',
         userID: '074047',
-        password: '123456'
+        password: '123456',
+        hideEnable: false
       }
     }
   },
@@ -217,6 +208,15 @@ export default {
 
     stopService (e) {
       this.socket.emit('system_exit')
+    },
+
+    modify_enable (key) {
+      this.$data[key].hideEnable = true
+    },
+    modify_confirm (key) {
+      // 参数校验
+      // 持久化
+      this.$data[key].hideEnable = false
     }
   }
 }
