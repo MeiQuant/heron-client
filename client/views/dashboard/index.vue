@@ -31,41 +31,41 @@
           <div class="columns">
             <div class="column is-8">
               <p class="is-6">地址</p>
-              <input class="input" type="text" v-model="frontServer.address" :disabled="!frontServer.hideEnable" placeholder="前置服务器地址">
+              <input class="input" type="text" v-model="frontServer.address" :disabled="!modifyEnable.frontServer" placeholder="前置服务器地址">
             </div>
             <div class="column">
               <p class="is-6">端口</p>
-              <input class="input" type="number" v-model="frontServer.port" :disabled="!frontServer.hideEnable" placeholder="端口">
+              <input class="input" type="number" v-model="frontServer.port" :disabled="!modifyEnable.frontServer" placeholder="端口">
             </div>
           </div>
           <div class="control">
-            <a class="button is-primary" :class="[frontServer.hideEnable ? 'is-hidden' : '']" @click="modify_enable('frontServer')">修改</a>
-            <a class="button is-info" :class="[frontServer.hideEnable ? '' : 'is-hidden']" @click="modify_confirm('frontServer')">确认</a>
+            <a class="button is-primary" :class="[modifyEnable.frontServer ? 'is-hidden' : '']" @click="modify_enable('frontServer')">修改</a>
+            <a class="button is-info" :class="[modifyEnable.frontServer ? '' : 'is-hidden']" @click="modify_confirm('frontServer')">确认</a>
           </div>
         </div>
 
         <div class="box">
-          <p class="title is-4">柜台服务器地址</p>
+          <p class="title is-4">CTP柜台服务器地址</p>
           <p class="subtitle is-6">配置柜台服务器地址</p>
           <div class="columns">
             <div class="column is-8">
               <p class="is-6">行情服务器</p>
-              <input class="input is-8" type="text" v-model="ctp.mdAddress" :disabled="!ctp.hideEnable" placeholder="行情服务器地址">
+              <input class="input is-8" type="text" v-model="ctp.mdAddress" :disabled="!modifyEnable.ctp" placeholder="行情服务器地址">
               <p>&nbsp;</p>
               <p class="is-6">交易服务器</p>
-              <input class="input is-8" type="text" v-model="ctp.tdAddress" :disabled="!ctp.hideEnable" placeholder="交易服务器地址">
+              <input class="input is-8" type="text" v-model="ctp.tdAddress" :disabled="!modifyEnable.ctp" placeholder="交易服务器地址">
             </div>
             <div class="column">
               <p class="is-6">端口</p>
-              <input class="input is-4" type="number" v-model="ctp.mdPort" :disabled="!ctp.hideEnable" placeholder="端口">
+              <input class="input is-4" type="number" v-model="ctp.mdPort" :disabled="!modifyEnable.ctp" placeholder="端口">
               <p>&nbsp;</p>
               <p class="is-6">端口</p>
-              <input class="input is-4" type="number" v-model="ctp.tdPort" :disabled="!ctp.hideEnable" placeholder="端口">
+              <input class="input is-4" type="number" v-model="ctp.tdPort" :disabled="!modifyEnable.ctp" placeholder="端口">
             </div>
           </div>
           <div class="control">
-            <a class="button is-primary" :class="[ctp.hideEnable ? 'is-hidden' : '']" @click="modify_enable('ctp')">修改</a>
-            <a class="button is-info" :class="[ctp.hideEnable ? '' : 'is-hidden']" @click="modify_confirm('ctp')">确认</a>
+            <a class="button is-primary" :class="[modifyEnable.ctp ? 'is-hidden' : '']" @click="modify_enable('ctp')">修改</a>
+            <a class="button is-info" :class="[modifyEnable.ctp ? '' : 'is-hidden']" @click="modify_confirm('ctp')">确认</a>
           </div>
         </div>
 
@@ -75,20 +75,20 @@
           <div class="columns">
             <div class="column is-4">
               <p class="is-6">BrokerID</p>
-              <input class="input" type="number" v-model="broker.brokerID" :disabled="!broker.hideEnable" placeholder="经纪商ID">
+              <input class="input" type="number" v-model="broker.brokerID" :disabled="!modifyEnable.broker" placeholder="经纪商ID">
             </div>
             <div class="column">
               <p class="is-6">用户名</p>
-              <input class="input" type="number" v-model="broker.userID" :disabled="!broker.hideEnable" placeholder="用户ID">
+              <input class="input" type="number" v-model="broker.userID" :disabled="!modifyEnable.broker" placeholder="用户ID">
             </div>
             <div class="column">
               <p class="is-6">密码</p>
-              <input class="input" type="password" v-model="broker.password" :disabled="!broker.hideEnable" placeholder="密码">
+              <input class="input" type="password" v-model="broker.password" :disabled="!modifyEnable.broker" placeholder="密码">
             </div>
           </div>
           <div class="control">
-            <a class="button is-primary" :class="[broker.hideEnable ? 'is-hidden' : '']"  @click="modify_enable('broker')">修改</a>
-            <a class="button is-info" :class="[broker.hideEnable ? '' : 'is-hidden']"  @click="modify_confirm('broker')">确认</a>
+            <a class="button is-primary" :class="[modifyEnable.broker ? 'is-hidden' : '']"  @click="modify_enable('broker')">修改</a>
+            <a class="button is-info" :class="[modifyEnable.broker ? '' : 'is-hidden']"  @click="modify_confirm('broker')">确认</a>
           </div>
         </div>
 
@@ -120,16 +120,42 @@
 <script>
 import Vue from 'vue'
 import Socket from 'vue-socket.io-meiquant'
-import Storage from 'vue-localstorage'
 
 Vue.use(Socket)
-Vue.use(Storage)
 
 export default {
 
   created () {
+    // 读取配置
+
+    const frontServer = JSON.parse(window.localStorage.getItem('config_frontServer'))
+    const ctp = JSON.parse(window.localStorage.getItem('config_ctp'))
+    const broker = JSON.parse(window.localStorage.getItem('config_broker'))
+
+    if (frontServer && (Object.keys(frontServer)).length > 0) {
+      this.$data.frontServer = frontServer
+    }
+
+    if (ctp && (Object.keys(ctp)).length > 0) {
+      this.$data.ctp = ctp
+    }
+
+    if (broker && (Object.keys(broker)).length > 0) {
+      this.$data.broker = broker
+    }
+
     // 建立与服务端的链接
-    this.socket = this.$socket('http://192.168.33.10:5000/system')
+    if (this.$data.frontServer.address) {
+      this.socket = this.$socket(this.$data.frontServer.address + '/system')
+    } else {
+      this.$store.commit('APPEND_LOG', {
+        time: '',
+        content: '请配置前置服务器地址',
+        isError: true
+      })
+      this.$data.modifyEnable.frontServer = true
+    }
+
     var _this = this
     window.setInterval(function () {
       _this.$forceUpdate()
@@ -151,43 +177,30 @@ export default {
     }
   },
 
-  localStorage: {
-    frontServer: {
-      address: 'http://192.168.33.10',
-      port: 5000
-    },
-    ctp: {
-      tdAddress: 'tcp://180.168.146.187',
-      tdPort: 10000,
-      mdAddress: 'tcp://180.168.146.187',
-      mdPort: 10010
-    },
-    broker: {
-      brokerID: '9999',
-      userID: '074047',
-      password: '123456'
-    }
-  },
-
   data () {
     return {
       frontServer: {
+        key: 'frontServer',
         address: 'http://192.168.33.10',
-        port: 5000,
-        hideEnable: false
+        port: 5000
       },
       ctp: {
+        key: 'ctp',
         tdAddress: 'tcp://180.168.146.187',
         tdPort: 10000,
         mdAddress: 'tcp://180.168.146.187',
-        mdPort: 10010,
-        hideEnable: false
+        mdPort: 10010
       },
       broker: {
+        key: 'broker',
         brokerID: '9999',
         userID: '074047',
-        password: '123456',
-        hideEnable: false
+        password: '123456'
+      },
+      modifyEnable: {
+        frontServer: false,
+        ctp: false,
+        broker: false
       }
     }
   },
@@ -202,7 +215,8 @@ export default {
   methods: {
 
     startService (e) {
-      // alert('我要启动服务')
+      // todo 连接前置服务器
+      // todo 校验柜台服务器地址
       this.socket.emit('system_start')
     },
 
@@ -211,12 +225,19 @@ export default {
     },
 
     modify_enable (key) {
-      this.$data[key].hideEnable = true
+      this.$data.modifyEnable[key] = true
     },
     modify_confirm (key) {
-      // 参数校验
+      // 地址校验
+      const frontServer = this.$data[key]
+
       // 持久化
-      this.$data[key].hideEnable = false
+      window.localStorage.setItem('config_' + key, JSON.stringify(frontServer))
+
+      // 重新连接
+      this.socket = this.$socket(this.$data.frontServer.address + '/system')
+
+      this.$data.modifyEnable[key] = false
     }
   }
 }

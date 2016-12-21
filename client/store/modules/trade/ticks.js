@@ -37,7 +37,7 @@ const mutations = {
 
 const actions = {
   update_tick ({ commit }, data) {
-    setTimeout(() => {
+    window.setTimeout(() => {
       commit(UPDATE_TICK, data)
     }, 0)
   }

@@ -67,7 +67,6 @@
     "vue-socket.io": "^2.0.1",
     "vue-socket.io-meiquant": "github:MeiQuant/Vue-Socket.io",
     "vuex": "2.0.0",
-    "vuex-persistedstate": "^1.1.0",
     "vuex-router-sync": "3.0.0",
     "wysiwyg.css": "0.0.2"
   },

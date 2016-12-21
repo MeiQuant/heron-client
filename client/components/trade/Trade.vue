@@ -66,7 +66,6 @@
             <tr>
               <th>委托编号</th>
               <th>合约代码</th>
-              <th>合约名称</th>
               <th>方向</th>
               <th>开平</th>
               <th>价格</th>
@@ -84,7 +83,6 @@
               <tr v-for="order of orders" :key="order.orderID">
                 <td> {{ order.orderID }} </td>
                 <td> {{ order.symbol}} </td>
-                <td> 合约名称 </td>
                 <td> {{ order.direction }} </td>
                 <td> {{ order.offset }} </td>
                 <td> {{ order.price }} </td>
@@ -120,7 +118,6 @@
               <th>成交编号</th>
               <th>委托编号</th>
               <th>合约代码</th>
-              <th>名称</th>
               <th>方向</th>
               <th>开平</th>
               <th>价格</th>
@@ -133,7 +130,6 @@
               <td> {{ trade.tradeID }} </td>
               <td> {{ trade.orderID }} </td>
               <td> {{ trade.symbol }} </td>
-              <td> 合约名称 </td>
               <td> {{ trade.direction }} </td>
               <td> {{ trade.offset }} </td>
               <td> {{ trade.price }} </td>
@@ -151,7 +147,6 @@
             <thead>
             <tr>
               <th>合约代码</th>
-              <th>名称</th>
               <th>方向</th>
               <th>持仓量</th>
               <th>昨日持仓</th>
@@ -163,7 +158,6 @@
             <tbody>
               <tr v-for="position of positions" :key="position.symbol">
                 <td> {{ position.symbol }} </td>
-                <td>合约名称</td>
                 <td> {{ position.direction }} </td>
                 <td> {{ position.position }} </td>
                 <td> {{ position.ydPosition }} </td>
