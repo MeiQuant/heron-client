@@ -22,29 +22,29 @@
       </tr>
       </thead>
       <tbody>
-        <tr v-for="tick of ticks" :key="tick.symbol">
-          <td>{{ tick.symbol}}</td>
-          <td>{{ tick.lastPrice}}</td>
-          <td>涨跌</td>
-          <td>幅度</td>
-          <td>{{ tick.askPrice1 }}</td>
-          <td>{{ tick.askVolume1 }}</td>
-          <td>{{ tick.bidPrice1 }}</td>
-          <td>{{ tick.bidVolume1 }}</td>
+      <tr v-for="tick of ticks" :key="tick.symbol">
+        <td>{{ tick.symbol}}</td>
+        <td>{{ tick.lastPrice}}</td>
+        <td>涨跌</td>
+        <td>幅度</td>
+        <td>{{ tick.askPrice1 }}</td>
+        <td>{{ tick.askVolume1 }}</td>
+        <td>{{ tick.bidPrice1 }}</td>
+        <td>{{ tick.bidVolume1 }}</td>
 
-          <td>{{ tick.volume }}</td>
+        <td>{{ tick.volume }}</td>
 
-          <td>{{ tick.volume }}</td>
+        <td>{{ tick.volume }}</td>
 
-          <td>{{ tick.openInterest }}</td>
+        <td>{{ tick.openInterest }}</td>
 
-          <td>{{ tick.preClosePrice }}</td>
-          <td>{{ tick.askPrice1 }}</td>
-          <td>{{ tick.askVolume1 }}</td>
-          <td>{{ tick.bidPrice1 }}</td>
-          <td>{{ tick.bidVolume1 }}</td>
+        <td>{{ tick.preClosePrice }}</td>
+        <td>{{ tick.askPrice1 }}</td>
+        <td>{{ tick.askVolume1 }}</td>
+        <td>{{ tick.bidPrice1 }}</td>
+        <td>{{ tick.bidVolume1 }}</td>
 
-        </tr>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -58,11 +58,7 @@ export default {
   props: ['exchange'],
 
   created () {
-    this.socket = this.$socket('http://192.168.33.10:5000/market')
-    var _this = this
-    window.setInterval(function () {
-      _this.$forceUpdate()
-    }, 500)
+    this.socket = this.$socket('http://192.168.33.10:5000/trade')
   },
 
   sockets: {
@@ -73,6 +69,14 @@ export default {
     init_ticks (data) {
       this.$store.commit('INIT_TICKS', data)
     }
+  },
+
+  updated () {
+    var _this = this
+    window.setTimeout(function () {
+      _this.$forceUpdate()
+      console.log('update' + (new Date()).getTime())
+    }, 500)
   },
 
   computed: {

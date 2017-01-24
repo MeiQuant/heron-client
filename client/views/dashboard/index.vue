@@ -78,12 +78,22 @@
               <input class="input" type="number" v-model="broker.brokerID" :disabled="!modifyEnable.broker" placeholder="经纪商ID">
             </div>
             <div class="column">
-              <p class="is-6">用户名</p>
-              <input class="input" type="number" v-model="broker.userID" :disabled="!modifyEnable.broker" placeholder="用户ID">
+              <p class="is-6">账号</p>
+              <input class="input" type="text" v-model="broker.userID" :disabled="!modifyEnable.broker" placeholder="用户ID">
             </div>
             <div class="column">
               <p class="is-6">密码</p>
               <input class="input" type="password" v-model="broker.password" :disabled="!modifyEnable.broker" placeholder="密码">
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column is-4">
+              <p class="is-6">UserProductInfo</p>
+              <input class="input" type="password" v-model="broker.userProductInfo" :disabled="!modifyEnable.broker" placeholder="用户端产品信息">
+            </div>
+            <div class="column is-4">
+              <p class="is-6">AuthCode</p>
+              <input class="input" type="password" v-model="broker.authCode" :disabled="!modifyEnable.broker" placeholder="用户端认证码">
             </div>
           </div>
           <div class="control">
@@ -144,18 +154,6 @@ export default {
       this.$data.broker = broker
     }
 
-    // 建立与服务端的链接
-    if (this.$data.frontServer.address) {
-      this.socket = this.$socket(this.$data.frontServer.address + '/system')
-    } else {
-      this.$store.commit('APPEND_LOG', {
-        time: '',
-        content: '请配置前置服务器地址',
-        isError: true
-      })
-      this.$data.modifyEnable.frontServer = true
-    }
-
     var _this = this
     window.setInterval(function () {
       _this.$forceUpdate()
@@ -195,7 +193,9 @@ export default {
         key: 'broker',
         brokerID: '9999',
         userID: '074047',
-        password: '123456'
+        password: '123456',
+        userProductInfo: '',
+        authCode: ''
       },
       modifyEnable: {
         frontServer: false,
@@ -215,13 +215,38 @@ export default {
   methods: {
 
     startService (e) {
-      // todo 连接前置服务器
+      // 连接前置服务器
+      const frontServer = this.$data.frontServer
+      const ctp = this.$data.ctp
+
       // todo 校验柜台服务器地址
-      this.socket.emit('system_start')
+      const config = Object.assign({
+        tdAddress: [ctp.tdAddress, ctp.tdPort].join(':'),
+        mdAddress: [ctp.mdAddress, ctp.mdPort].join(':')
+      }, this.$data.broker)
+
+      if (frontServer) {
+        this.socket = this.$socket(frontServer.address + ':' + frontServer.port + '/system')
+      } else {
+        this.$store.commit('APPEND_LOG', {
+          time: '',
+          content: '请配置前置服务器地址',
+          isError: true
+        })
+        this.$data.modifyEnable.frontServer = true
+        return false
+      }
+
+      this.socket.emit('start', config)
     },
 
     stopService (e) {
-      this.socket.emit('system_exit')
+      if (this.socket) {
+        this.socket.emit('close')
+      } else {
+        this.socket = this.$socket(this.$data.frontServer.address + ':' + this.$data.frontServer.port + '/system')
+        this.socket.emit('close')
+      }
     },
 
     modify_enable (key) {

@@ -11,6 +11,7 @@ import ticks from './modules/trade/ticks'
 import positions from './modules/trade/positions'
 import orders from './modules/trade/orders'
 import trades from './modules/trade/trades'
+import account from './modules/trade/account'
 
 Vue.use(Vuex)
 
@@ -25,7 +26,8 @@ const store = new Vuex.Store({
     ticks,
     positions,
     orders,
-    trades
+    trades,
+    account
   },
   state: {
     pkg

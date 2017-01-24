@@ -19,3 +19,5 @@ export const UPDATE_ORDER = 'UPDATE_ORDER'
 export const UPDATE_TRADE = 'UPDATE_TRADE'
 
 export const UPDATE_CONFIG = 'UPDATE_CONFIG'
+
+export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT'

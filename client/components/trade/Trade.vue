@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-4">
         <div class="box">
-          <p class="title is-4">交易</p>
+          <p class="title is-4">下单</p>
 
           <p class="is-6">合约代码</p>
           <div class="control is-grouped">
@@ -55,6 +55,32 @@
 
         <div class="box">
           <p class="title is-4">资金</p>
+          <table class="table is-narrow">
+            <thead>
+            <tr>
+              <th>账号</th>
+              <th>昨日净值</th>
+              <th>可用</th>
+              <th>佣金</th>
+              <th>平仓盈亏</th>
+              <th>持仓盈亏</th>
+              <th>资金余额</th>
+              <th>保证金</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{ account.accountID }}</td>
+              <td>{{ account.preBalance }}</td>
+              <td>{{ account.available }}</td>
+              <td>{{ account.commission }}</td>
+              <td>{{ account.closeProfit }}</td>
+              <td>{{ account.positionProfit }}</td>
+              <td>{{ account.balance }}</td>
+              <td>{{ account.margin }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
 
       </div>
@@ -207,6 +233,10 @@
 
       update_position (data) {
         this.$store.commit('UPDATE_POSITION', data)
+      },
+
+      update_account (data) {
+        this.$store.commit('UPDATE_ACCOUNT', data)
       }
     },
 
@@ -223,7 +253,9 @@
 
         positions: this.$store.state.positions,
 
-        trades: this.$store.state.trades
+        trades: this.$store.state.trades,
+
+        account: this.$store.state.account
       }
     },
 
@@ -231,8 +263,7 @@
       send_order (direction, offset) {
         const order = Object.assign({
           direction: direction,
-          offset: offset,
-          exchange: 'SHFE'
+          offset: offset
         }, this.$data.order)
 
         // 弹屏确认
