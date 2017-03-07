@@ -1,4 +1,7 @@
 {
   "name": "Hero",
-  "main": "index.html"
+  "main": "index.html",
+  "window": {
+    "toolbar": true
+  }
 }
