@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-
-  {{ message }}
     <nav class="nav">
       <div class="nav-left">
         <a class="nav-item">
-          <img src="http://bulma.io/images/bulma-logo.png">
+          <span class="icon is-large">
+            <i class="fa fa-home"></i>
+          </span>
         </a>
       </div>
 
@@ -23,15 +23,14 @@
 
 <script>
 export default {
-  data: {
-    message: 'Hello, Heron'
-  }
 }
 </script>
 
 <style lang="scss">
 
   @import '~bulma';
+
+  $fa-font-path: '~font-awesome/fonts/';
   @import '~font-awesome/scss/font-awesome';
 
 </style>
