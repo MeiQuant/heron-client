@@ -140,102 +140,9 @@
 
     <div class="option-quote-params" v-bind:class="{ hidden: options.params.hidden }">
       <div class="box" title="">
-        <div class="csLine Bid" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">买价</span>
-        </div>
-        <div class="csLine Ask" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">卖价</span>
-        </div>
-        <div class="csLine TradingPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">最新价</span>
-        </div>
-        <div class="csLine TradeVolume" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">成交量</span>
-        </div>
-        <div class="csLine TradeQuantity" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">现量</span>
-        </div>
-        <div class="csLine ImpliedVolatility" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">隐波率</span>
-        </div>
-        <div class="csLine Change" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">涨跌</span>
-        </div>
-        <div class="csLine UDRATE" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">涨跌幅</span>
-        </div>
-        <div class="csLine Delta" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">Delta</span>
-        </div>
-        <div class="csLine Gamma" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">Gamma</span>
-        </div>
-        <div class="csLine Vega" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">Vega</span>
-        </div>
-        <div class="csLine Theory" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">理论价</span>
-        </div>
-        <div class="csLine TimeValue" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">时间价值</span>
-        </div>
-        <div class="csLine FilledTime" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">更新时间</span>
-        </div>
-        <div class="csLine ReferencePrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">昨结算</span>
-        </div>
-        <div class="csLine YClosedPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">昨收盘</span>
-        </div>
-        <div class="csLine BidVolume" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">买量</span>
-        </div>
-        <div class="csLine AskVolume" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">卖量</span>
-        </div>
-        <div class="csLine HighPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">最高价</span>
-        </div>
-        <div class="csLine LowPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">最低价</span>
-        </div>
-        <div class="csLine UpperLimitPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">涨停价</span>
-        </div>
-        <div class="csLine LowerLimitPrice" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">跌停价</span>
-        </div>
-        <div class="csLine OpenInterest" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">持仓量</span>
-        </div>
-        <div class="csLine YOpenInterest" title="">
-          <input type="checkbox" tabindex="-1">
-          <span class="colText" title="">昨持仓</span>
-        </div>
+
+        <div v-for="(item, index) in options.params.names">
+          <input type="checkbox" :value="item" v-model="selectedParams"><span>{{ item }}</span></div>
         <div class="tcenter margin5" title="">
           <span class="button btnDefault" title="">恢复默认</span>
         </div>
@@ -299,12 +206,17 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    data: () => {
+      return {
+        selectedParams: []
+      }
+    },
+
     methods: {
       showParams: function () {
         this.$store.commit('TOGGLE_OPTION_QUOTE_PARAMS')
       }
     },
-
     computed: mapGetters({
       options: 'options'
     })

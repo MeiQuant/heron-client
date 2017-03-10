@@ -4,10 +4,11 @@
 
 import * as types from '../../mutation-types'
 
+import quote from './quote'
+
 const state = {
-  params: {
-    hidden: true
-  }
+  quote,
+  params: quote.params
 }
 
 const mutations = {
