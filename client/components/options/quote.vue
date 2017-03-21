@@ -4,18 +4,13 @@
       <div class="nav-left">
         <div class="nav-item">
           <span class="select">
-            <select>
-              <option>上海证券交易所</option>
-              <option>中国金融交易所</option>
-              <option>郑州商品交易所</option>
-              <option>大连商品交易所</option>
-              <option>上海商品交易所</option>
+            <select v-model="selectedExchange" @change="changeExchange(selectedExchange)">
+               <option v-for="(item, key, index) in options.params.exchanges" v-bind:value="item">{{ item.name }}</option>
             </select>
           </span>
           <span class="select">
-            <select>
-              <option>白糖期权</option>
-              <option>豆粕期权</option>
+            <select v-model="selectedInstrument" @change="changeInstrument(selectedInstrument)">
+              <option v-for="item in selectedExchange.instruments" v-bind:value="item">{{ item.name }}</option>
             </select>
           </span>
         </div>
@@ -67,9 +62,8 @@
             <th class="option-call" colspan="12">看涨期权（Call）</th>
             <th class="option-select">
               <span class="select">
-                <select>
-                  <option>1703</option>
-                  <option>1704</option>
+                <select v-model="selectedMonth">
+                  <option v-for="item in selectedInstrument.months">{{ item }}</option>
                 </select>
               </span>
             </th>
@@ -206,15 +200,26 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    data: () => {
+    data: function () {
+      const options = this.$store.state.options
+      const defaultExchange = options.params.exchanges[2]
       return {
-        selectedParams: []
+        selectedParams: [],
+        selectedExchange: defaultExchange,
+        selectedInstrument: defaultExchange.instruments[0],
+        selectedMonth: defaultExchange.instruments[0].months[0]
       }
     },
 
     methods: {
       showParams: function () {
         this.$store.commit('TOGGLE_OPTION_QUOTE_PARAMS')
+      },
+      changeExchange: function (exchange) {
+        this.selectedInstrument = exchange.instruments[0]
+      },
+      changeInstrument: function (instrument) {
+        this.selectedMonth = instrument.months[0]
       }
     },
     computed: mapGetters({
