@@ -41,7 +41,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>白糖 1705</td>
+            <td>{{ selectedMonth.name }}</td>
             <td>6723</td>
             <td>120</td>
             <td>6722</td>
@@ -62,8 +62,8 @@
             <th class="option-call" colspan="12">看涨期权（Call）</th>
             <th class="option-select">
               <span class="select">
-                <select v-model="selectedMonth">
-                  <option v-for="item in selectedInstrument.months">{{ item }}</option>
+                <select v-model="selectedMonth" @change="changeMonth(selectedMonth)">
+                  <option v-for="item in selectedInstrument.months" v-bind:value="item">{{ item.month }}</option>
                 </select>
               </span>
             </th>
@@ -207,7 +207,8 @@
         selectedParams: [],
         selectedExchange: defaultExchange,
         selectedInstrument: defaultExchange.instruments[0],
-        selectedMonth: defaultExchange.instruments[0].months[0]
+        selectedMonth: defaultExchange.instruments[0].months[0],
+        selectedQuotes: []
       }
     },
 
@@ -216,10 +217,17 @@
         this.$store.commit('TOGGLE_OPTION_QUOTE_PARAMS')
       },
       changeExchange: function (exchange) {
+        // 默认合约以及月份
         this.selectedInstrument = exchange.instruments[0]
+        this.selectedMonth = exchange.instruments[0].months[0]
       },
       changeInstrument: function (instrument) {
+        // 默认月
         this.selectedMonth = instrument.months[0]
+      },
+      changeMonth: function (month) {
+        this.selectedMonth = month
+        // todo 执行相应月份行情接收
       }
     },
     computed: mapGetters({
