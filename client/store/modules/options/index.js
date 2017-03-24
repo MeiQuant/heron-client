@@ -7,8 +7,10 @@ import * as types from '../../mutation-types'
 import quote from './quote'
 
 const state = {
-  quote,
-  params: quote.params
+  quote: quote,
+  quotes: quote.quotes,
+  params: quote.params,
+  exchanges: quote.exchanges
 }
 
 const mutations = {

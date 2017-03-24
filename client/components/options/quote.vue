@@ -5,7 +5,7 @@
         <div class="nav-item">
           <span class="select">
             <select v-model="selectedExchange" @change="changeExchange(selectedExchange)">
-               <option v-for="(item, key, index) in options.params.exchanges" v-bind:value="item">{{ item.name }}</option>
+               <option v-for="(item, key, index) in options.exchanges" v-bind:value="item">{{ item.name }}</option>
             </select>
           </span>
           <span class="select">
@@ -41,15 +41,8 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ selectedMonth.name }}</td>
-            <td>6723</td>
-            <td>120</td>
-            <td>6722</td>
-            <td>6723</td>
-            <td>6787</td>
-            <td>6702</td>
-            <td>508614</td>
-            <td>16:07:16</td>
+            <td>{{ selectedMonth.spot.name }}</td>
+            <td v-for="item in options.quote.spot">{{ item }}</td>
           </tr>
         </tbody>
       </table>
@@ -59,74 +52,30 @@
       <table class="table option-quote">
         <thead>
           <tr class="option-type">
-            <th class="option-call" colspan="12">看涨期权（Call）</th>
+            <th class="option-call" :colspan="selectedParams.length">看涨期权（Call）</th>
             <th class="option-select">
               <span class="select">
                 <select v-model="selectedMonth" @change="changeMonth(selectedMonth)">
-                  <option v-for="item in selectedInstrument.months" v-bind:value="item">{{ item.month }}</option>
+                  <option v-for="item in selectedInstrument.months" v-bind:value="item">{{ item.name }}</option>
                 </select>
               </span>
             </th>
-            <th class="option-put" colspan="12">
+            <th class="option-put" :colspan="selectedParams.length">
               看跌期权（Put）
             </th>
 
           </tr>
           <tr>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
-            <th>买价</th>
+            <th v-for="item in selectedParams">{{ options.params.default[item] }}</th>
+            <th>执行价</th>
+            <th v-for="item in selectedParams">{{ options.params.default[item] }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
-            <td>1.02</td>
+          <tr v-for="item in options.quotes">
+            <td v-for=" call_quote in selectedParams ">{{ item.call[call_quote] }}</td>
+            <td>{{ item.strike }}</td>
+            <td v-for=" put_quote in selectedParams ">{{ item.put[put_quote] }}</td>
           </tr>
         </tbody>
       </table>
@@ -135,10 +84,11 @@
     <div class="option-quote-params" v-bind:class="{ hidden: options.params.hidden }">
       <div class="box" title="">
 
-        <div v-for="(item, index) in options.params.names">
-          <input type="checkbox" :value="item" v-model="selectedParams"><span>{{ item }}</span></div>
+        <div v-for="(item, index) in options.params.default">
+          <input type="checkbox" :value="index" v-model="selectedParams" @click="checkParam(item, index)"><span>{{ item }}</span>
+        </div>
         <div class="tcenter margin5" title="">
-          <span class="button btnDefault" title="">恢复默认</span>
+          <span class="button btnDefault" title="恢复默认" @click="resetParams(options.params.keys)">恢复默认</span>
         </div>
       </div>
     </div>
@@ -202,9 +152,9 @@
   export default {
     data: function () {
       const options = this.$store.state.options
-      const defaultExchange = options.params.exchanges[2]
+      const defaultExchange = options.exchanges[2]
       return {
-        selectedParams: [],
+        selectedParams: options.params.keys,
         selectedExchange: defaultExchange,
         selectedInstrument: defaultExchange.instruments[0],
         selectedMonth: defaultExchange.instruments[0].months[0],
@@ -227,7 +177,15 @@
       },
       changeMonth: function (month) {
         this.selectedMonth = month
-        // todo 执行相应月份行情接收
+        // todo 执行相应月份行情接收, 返回不同strike
+      },
+      checkParam: function (item, index) {
+        if (index in this.selectedKeys) {
+          return
+        }
+      },
+      resetParams: function (keys) {
+        this.selectedParams = keys
       }
     },
     computed: mapGetters({
